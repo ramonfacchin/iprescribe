@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sample="http://java.sun.com/jsf/composite/tags/sample"
+	template="/templates/pages/basic-divided-header.xhtml">
+
+	<ui:define name="title">#{messages['medicaldoctor.license.title']}</ui:define>
+
+	<ui:define name="body">
+		<h2>#{messages['medicaldoctor.license.title']}</h2>
+		<p>
+			<h:messages globalOnly="true"/>
+		
+			<h:form id="add-license-form">
+			
+				<h:panelGrid columns="3" columnClasses="largura120,larguraauto,larguraauto">
+			
+				<h:outputLabel value="#{messages['medicaldoctor.license.label.professionalid']}" />
+				<h:inputText value="#{licenseCrudMB.entityForm.professionalId}" id="professionalid" />
+				<h:message for="professionalid"/>
+			
+				<h:outputLabel value="#{messages['medicaldoctor.license.label.country']}" />
+				<h:inputText value="#{licenseCrudMB.entityForm.country}" id="country" />
+				<h:message for="country"/>
+			
+				<h:outputLabel value="#{messages['medicaldoctor.license.label.state']}" />
+				<h:inputText value="#{licenseCrudMB.entityForm.state}" id="state" />
+				<h:message for="state"/>
+			
+				<h:outputLabel value="#{messages['medicaldoctor.license.label.city']}" />
+				<h:inputText value="#{licenseCrudMB.entityForm.city}" id="city" />
+				<h:message for="city"/>
+			
+				<h:outputLabel value="#{messages['medicaldoctor.license.label.location']}" />
+				<h:inputText value="#{licenseCrudMB.entityForm.location}" id="location" />
+				<h:message for="location"/>
+				
+				</h:panelGrid>
+				<center>
+					<h:commandButton value="#{messages['medicaldoctor.license.label.submit']}" action="#{licenseCrudMB.create()}" />
+				</center>
+			</h:form>
+		</p>
+	</ui:define>
+
+</ui:composition>

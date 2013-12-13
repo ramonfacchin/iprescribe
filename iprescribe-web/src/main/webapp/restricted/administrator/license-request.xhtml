@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sample="http://java.sun.com/jsf/composite/tags/sample"
+	template="/templates/pages/basic-divided-header.xhtml">
+
+	<ui:define name="title">#{messages['administrator.licenserequest.title']}</ui:define>
+
+	<ui:define name="body">
+		<h2>#{messages['administrator.licenserequest.title']}</h2>
+		<p>
+			<h:messages globalOnly="true"/>
+		
+			<h:form id="license-request-form">
+			
+				<h:dataTable value="#{licenseRequestListMB.list()}" var="_license">
+					
+					<h:column>
+						<f:facet name="header">
+							#{messages['administrator.licenserequest.name']}
+						</f:facet>
+						<h:outputText value="#{_license.user.identity.name}" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							#{messages['administrator.licenserequest.professionalid']}
+						</f:facet>
+						<h:outputText value="#{_license.professionalId}" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							#{messages['administrator.licenserequest.country']}
+						</f:facet>
+						<h:outputText value="#{_license.country}" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							#{messages['administrator.licenserequest.state']}
+						</f:facet>
+						<h:outputText value="#{_license.state}" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							#{messages['administrator.licenserequest.city']}
+						</f:facet>
+						<h:outputText value="#{_license.city}" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							#{messages['administrator.licenserequest.location']}
+						</f:facet>
+						<h:outputText value="#{_license.location}" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							#{messages['administrator.licenserequest.actions']}
+						</f:facet>
+						<h:commandButton action="#{licenseRequestListMB.verify(_license)}" value="#{messages['administrator.licenserequest.verify']}" />
+						<h:commandButton action="#{licenseRequestListMB.disapprove(_license)}" value="#{messages['administrator.licenserequest.disapprove']}" />
+					</h:column>
+					
+				</h:dataTable>
+			
+			</h:form>
+		</p>
+	</ui:define>
+
+</ui:composition>

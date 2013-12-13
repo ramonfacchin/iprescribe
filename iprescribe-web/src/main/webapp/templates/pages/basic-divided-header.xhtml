@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/pages/basic-no-footer.xhtml">
+
+	<ui:define name="title">iPrescribe</ui:define>
+
+	<ui:define name="header">
+		<div id="global-header-content-logo">
+			<ui:insert name="header-logo">
+			<h2 style="text-align: left;">
+			#{messages['application.name']}
+			</h2>
+			</ui:insert>
+		</div>
+		<div id="global-header-content-actions">
+			<ui:insert name="header-actions">
+				<div style="text-align: right;">
+					<h:form id="form_authentication">
+						<ui:fragment rendered="#{!(authenticationMB.authenticated)}">
+							<h:outputLink value="#{urls.getLoginContext(0)}">#{messages['action.login']}</h:outputLink>
+						</ui:fragment>
+						<ui:fragment rendered="#{authenticationMB.authenticated}">
+							<h:outputText value="#{authenticationMB.loggedUser.identity.name} (#{authenticationMB.loggedUser.identity.citizenRegistry})" />
+							<h:outputText value=" | " />
+							<h:outputLink value="#{urls.getLogoutContext(0)}">#{messages['action.logout']}</h:outputLink>
+						</ui:fragment>
+					</h:form>
+				</div>
+			</ui:insert>
+		</div>
+		<div class="clear"></div>
+		<div id="global-header-content-menu">
+			<ui:include src="/templates/menu/menu.xhtml"/>
+			<ui:insert name="header-menu"/>
+		</div>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sample="http://java.sun.com/jsf/composite/tags/sample"
+    xmlns:p="http://primefaces.org/ui"
+	template="/templates/pages/basic-divided-header.xhtml">
+
+	<ui:define name="title">#{messages['medicaldoctor.certify.title']}</ui:define>
+
+	<ui:define name="body">
+		<h2>#{messages['medicaldoctor.certify.title']}</h2>
+		<p>
+			<h:messages globalOnly="true"/>
+		
+			<h:form id="certify">
+			
+				<h:panelGrid columns="3" columnClasses="largura120,largura300,larguraauto">
+			
+					<h:outputLabel value="#{messages['medicaldoctor.certify.label.license']}" for="license" />
+					<h:selectOneMenu value="#{certifyCrudMB.entityForm.issuerLicense}" styleClass="largura280" converter="#{medicalLicenseConverter}" id="license" required="true" hideNoSelectionOption="true">
+						<f:selectItems value="#{certifyCrudMB.listUserLicenses()}" var="_license" itemLabel="#{_license.labelString}" itemValue="#{_license}"/>
+					</h:selectOneMenu>
+					<h:message for="license"/>
+				
+				</h:panelGrid>
+				
+				<p:outputPanel id="certified-panel">
+					<h:panelGrid columns="3" columnClasses="largura120,largura300,larguraauto">
+						<h:outputLabel value="#{messages['medicaldoctor.certify.label.certified.citizenregistry']}" />
+						<h:inputText value="#{certifyCrudMB.entityForm.certified.citizenRegistry}" styleClass="largura280" id="citizenregistry">
+							<f:ajax render="certified-panel" event="blur" listener="#{certifyCrudMB.findByCitizenRegistry}" execute="@this"></f:ajax>
+						</h:inputText>
+						<h:message for="citizenregistry"/><br/>
+					</h:panelGrid>
+				
+					<p:outputPanel id="certified-found-panel" rendered="#{certifyCrudMB.entityForm.certified.id != null}">
+						<h:panelGrid columns="2" columnClasses="largura120,largura300">
+							<h:outputLabel value="#{messages['medicaldoctor.certify.label.certified.name']}" />
+							<h:outputText value="#{certifyCrudMB.entityForm.certified.name}" />
+							<h:outputLabel value="#{messages['medicaldoctor.certify.label.certified.birth']}" />
+							<h:outputText value="#{internationalizationMB.getFormattedDate(certifyCrudMB.entityForm.certified.birth,'dd/MM/yyyy')}" />
+							<h:outputLabel value="#{messages['medicaldoctor.certify.label.certified.gender']}" />
+							<h:outputText value="#{messages[certifyCrudMB.entityForm.certified.gender.i18nKey]}" />
+						</h:panelGrid>
+					</p:outputPanel>
+					
+					<p:outputPanel id="certified-notfound-panel" rendered="#{certifyCrudMB.entityForm.certified.id == null}">
+						<h:panelGrid columns="3" columnClasses="largura120,largura300,larguraauto">
+							<h:outputLabel value="#{messages['medicaldoctor.certify.label.certified.name']}" />
+							<h:inputText value="#{certifyCrudMB.entityForm.certified.name}" styleClass="largura280" id="name" />
+							<h:message for="name"/>
+							
+							<h:outputLabel value="#{messages['medicaldoctor.certify.label.certified.birth']}" />
+							<h:inputText value="#{certifyCrudMB.entityForm.certified.birth}" styleClass="largura280" id="birth">
+								<f:convertDateTime pattern="#{messages['pattern.datetime']}"/>
+							</h:inputText><h:message for="birth"/>
+								
+							<h:outputLabel value="#{messages['medicaldoctor.certify.label.certified.gender']}" />
+							<h:selectOneRadio value="#{certifyCrudMB.entityForm.certified.gender}" styleClass="largura280" id="gender" layout="pageDirection">
+								<f:selectItems value="#{enumSelects.genders}" var="gender" itemLabel="#{messages[gender.i18nKey]}" itemValue="#{gender}"/>
+							</h:selectOneRadio>
+							<h:message for="gender"/>
+						</h:panelGrid>
+					</p:outputPanel>
+				</p:outputPanel>
+			
+				<h:panelGrid columns="3" columnClasses="largura120,largura300,larguraauto">
+					<h:outputLabel value="#{messages['medicaldoctor.certify.label.goal']}" for="goal" />
+					<h:inputText value="#{certifyCrudMB.entityForm.goal}" styleClass="largura280" id="goal">
+					</h:inputText>
+					<h:message for="goal"/>
+							
+					<h:outputLabel value="#{messages['medicaldoctor.certify.label.certified.validity']}" />
+					<h:inputText value="#{certifyCrudMB.entityForm.validity}" styleClass="largura280" id="validity">
+						<f:convertDateTime pattern="#{messages['pattern.datetime']}"/>
+					</h:inputText>
+					<h:message for="validity"/>
+					
+					<h:outputLabel value="#{messages['medicaldoctor.certify.label.comments']}" for="comments" />
+					<h:inputTextarea value="#{certifyCrudMB.entityForm.comments}" styleClass="largura280" id="comments" rows="4"/>
+					<h:message for="comments"/>
+				
+					<h:outputLabel value="#{messages['medicaldoctor.certify.label.icd']}" for="icd" />
+					<h:inputText value="#{certifyCrudMB.entityForm.icd}" styleClass="largura280" id="icd"/>
+					<h:message for="icd"/>
+				
+					<h:outputLabel value="#{messages['medicaldoctor.certify.label.diagnosys']}" for="diagnosys" />
+					<h:inputTextarea value="#{certifyCrudMB.entityForm.diagnosys}" styleClass="largura280" id="diagnosys" rows="4"/>
+					<h:message for="diagnosys"/>
+				
+					<h:outputLabel value="#{messages['medicaldoctor.certify.label.prognosys']}" for="prognosys" />
+					<h:inputTextarea value="#{certifyCrudMB.entityForm.prognosys}" id="prognosys" styleClass="largura280" rows="4"/>
+					<h:message for="prognosys"/>
+				
+					<h:outputLabel value="#{messages['medicaldoctor.certify.label.therapeuticbehavior']}" for="therapeuticbehavior" />
+					<h:inputTextarea value="#{certifyCrudMB.entityForm.therapeuticBehavior}" id="therapeuticbehavior" styleClass="largura280" rows="4"/>
+					<h:message for="therapeuticbehavior"/>
+				
+					<h:outputLabel value="#{messages['medicaldoctor.certify.label.healthconsequences']}" for="healthconsequences" />
+					<h:inputTextarea value="#{certifyCrudMB.entityForm.healthConsequences}" id="healthconsequences" styleClass="largura280" rows="4"/>
+					<h:message for="healthconsequences"/>
+				
+					<h:outputLabel value="#{messages['medicaldoctor.certify.label.complementaryexamresults']}" for="complementaryexamresults" />
+					<h:inputTextarea value="#{certifyCrudMB.entityForm.complementaryExamsResults}" id="complementaryexamresults"  styleClass="largura280" rows="4"/>
+					<h:message for="complementaryexamresults"/>
+				</h:panelGrid>
+
+				<center>
+					<h:commandButton value="#{messages['medicaldoctor.certify.label.submit']}" type="submit" action="#{certifyCrudMB.create()}" disabled="#{empty certifyCrudMB.listUserLicenses()}"/>
+				</center>				
+			</h:form>
+		</p>
+	</ui:define>
+
+</ui:composition>

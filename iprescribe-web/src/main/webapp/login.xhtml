@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sample="http://java.sun.com/jsf/composite/tags/sample"
+	template="/templates/pages/basic-divided-header.xhtml">
+
+	<ui:define name="title">Teste Composite Component</ui:define>
+
+	<ui:define name="body">
+		<h2>Login</h2>
+		<p>
+			<h:messages />
+		
+			<h:form rendered="#{!(authenticationMB.authenticated)}">
+				<h:panelGrid columns="2" columnClasses="largura120, larguraauto">
+					<h:outputLabel value="#{messages['login.username']}" for="username"/>
+					<h:inputText value="#{authenticationMB.username}" id="username" />
+					<h:outputLabel value="#{messages['login.password']}" for="password"/>
+					<h:inputSecret value="#{authenticationMB.password}" id="password" />
+				</h:panelGrid>
+				<center>
+					<h:commandButton value="#{messages['login.submit']}" action="#{authenticationMB.authenticate()}" />
+				</center>
+			</h:form>
+			
+			<ui:fragment rendered="#{authenticationMB.authenticated}">
+				<h3>authenticated</h3>
+			</ui:fragment>
+		</p>
+	</ui:define>
+
+</ui:composition>

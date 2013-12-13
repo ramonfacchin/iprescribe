@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sample="http://java.sun.com/jsf/composite/tags/sample"
+    xmlns:p="http://primefaces.org/ui"
+	template="/templates/pages/basic-divided-header.xhtml">
+
+	<ui:define name="title">#{messages['medicaldoctor.viewcertificate.title']}</ui:define>
+
+	<ui:define name="body">
+		<h2>#{messages['medicaldoctor.viewcertificate.title']}</h2>
+		<p>
+			<h:messages globalOnly="true"/>
+		
+			<h:form id="view-certificate-form">
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.certified.citizenregistry']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.certified.citizenRegistry}" id="certifiedcitizenregistry"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.certified.name']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.certified.name}" id="certifiedname"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.purpose']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.goal}" id="purpose"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.issued']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.issued}" id="issued"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.validity']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.validity}" id="validity"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.comments']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.comments}" id="comments"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.complementaryexamsresults']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.complementaryExamsResults}" id="complementaryexamsresults"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.diagnosys']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.diagnosys}" id="diagnosys"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.healthconsequences']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.healthConsequences}" id="healthconsequences"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.icd']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.icd}" id="icd"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.prognosys']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.prognosys}" id="prognosys"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.therapeuticbehavior']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.therapeuticBehavior}" id="therapeuticbehavior"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.issuerlicense']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.issuerLicense.professionalId}" id="issuerlicense"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.issuerlicensecountry']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.issuerLicense.country}" id="issuerlicensecountry"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.issuerlicensestate']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.issuerLicense.state}" id="issuerlicensestate"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.issuername']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.entityForm.issuerLicense.user.identity.name}" id="issuername"/><br/>
+						
+				<h:outputLabel value="#{messages['medicaldoctor.viewcertificate.label.hash']}" /><br/>
+				<h:outputText value="#{certifyCrudMB.registry.hash}" id="hash"/><br/>
+				
+				<h:commandButton action="#{certifyCrudMB.downloadPdf()}" value="#{messages['medicaldoctor.viewcertificate.label.downloadpdf']}" />
+				<h:commandButton value="#{messages['medicaldoctor.viewcertificate.label.finish']}" action="#{urls.getHome(2)}"/>
+			</h:form>
+		</p>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/pages/basic-divided-header.xhtml">
+
+	<ui:define name="title">Bem vindo</ui:define>
+
+	<ui:define name="body">
+		<h:form>
+		
+			<h2>#{messages['database.configuration.title']}</h2>
+			
+			<h:messages />
+		
+			<h:dataTable value="#{databaseConfigurationListMB.list}" var="dbc" styleClass="width75">
+				<h:column>
+					<f:facet name="header">#{messages['database.configuration.label.key']}</f:facet>
+					<h:outputText value="#{dbc.key}" rendered="#{!dbc.edit}" />
+					<h:inputText id="dbckey" value="#{dbc.key}" rendered="#{dbc.edit}" />
+					<h:message for="dbckey" rendered="#{dbc.edit}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">#{messages['database.configuration.label.value']}</f:facet>
+					<h:outputText value="#{dbc.value}" rendered="#{!dbc.edit}" />
+					<h:inputText id="dbcvalue" value="#{dbc.value}" rendered="#{dbc.edit}" />
+					<h:message for="dbcvalue" rendered="#{dbc.edit}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">#{messages['list.label.actions']}</f:facet>
+					<h:commandLink action="#{databaseConfigurationListMB.editRow(dbc)}" value="#{messages['list.label.actions.edit']}"/>
+				</h:column>
+				<f:facet name="footer">
+					<div class="center padding5px">
+					<h:commandLink action="#{databaseConfigurationListMB.goToFirstPage()}" value="  #{messages['list.go.to.page.first']}  " title="#{messages['list.go.to.page.first.title']}" rendered="#{databaseConfigurationListMB.hasPreviousPage()}"/>
+					<h:commandLink action="#{databaseConfigurationListMB.goToPreviousPage()}" value="  #{messages['list.go.to.page.previous']}  " title="#{messages['list.go.to.page.previous.title']}" rendered="#{databaseConfigurationListMB.hasPreviousPage()}"/>
+					<h:outputText value=" (#{messages['list.pagination.page']} #{databaseConfigurationListMB.currentPage} #{messages['list.pagination.of']} #{databaseConfigurationListMB.pageCount}) " />
+					<h:commandLink action="#{databaseConfigurationListMB.goToNextPage()}" value="  #{messages['list.go.to.page.next']}  " title="#{messages['list.go.to.page.next.title']}" rendered="#{databaseConfigurationListMB.hasNexPage()}"/>
+					<h:commandLink action="#{databaseConfigurationListMB.goToLastPage()}" value="  #{messages['list.go.to.page.last']}  " title="#{messages['list.go.to.page.last.title']}" rendered="#{databaseConfigurationListMB.hasNexPage()}"/>
+					</div>
+				</f:facet>
+			</h:dataTable>
+		
+			<h:commandButton styleClass="button" action="#{databaseConfigurationListMB.executeQuery()}" value="#{messages['list.label.actions.global.search']}" />
+			<h:commandButton styleClass="button" action="#{databaseConfigurationListMB.addRow()}" value="#{messages['list.label.actions.global.addrow']}" />
+			<h:commandButton styleClass="button" action="#{databaseConfigurationListMB.save()}" value="#{messages['list.label.actions.global.save']}" />
+		</h:form>
+	</ui:define>
+
+	<ui:define name="footer">
+		<h:selectOneMenu styleClass="select" value="#{internationalizationMB.localeKey}" valueChangeListener="#{internationalizationMB.changeLocale}" onchange="submit();">
+			<f:selectItems value="#{internationalizationMB.availableLanguages}"></f:selectItems>
+		</h:selectOneMenu>
+	</ui:define>
+
+</ui:composition>

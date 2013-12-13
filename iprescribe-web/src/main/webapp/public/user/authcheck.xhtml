@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sample="http://java.sun.com/jsf/composite/tags/sample"
+    xmlns:p="http://primefaces.org/ui"
+	template="/templates/pages/basic-divided-header.xhtml">
+
+	<ui:define name="title">#{messages['user.authcheck.title']}</ui:define>
+
+	<ui:define name="body">
+		<h2>#{messages['user.authcheck.title']}</h2>
+		<p>
+			<h:messages globalOnly="true"/>
+		
+			<h:form id="authcheck">
+				<h:panelGrid columns="3" columnClasses="largura200,larguraauto,larguraauto">
+					<h:outputLabel value="#{messages['user.authcheck.label.authcode']}" />
+					<h:inputText value="#{authenticationCheckMB.hash}" id="authcode" /><h:message for="authcode"/>
+				</h:panelGrid>
+				<center>
+					<h:commandButton value="#{messages['user.authcheck.label.submit']}" action="#{authenticationCheckMB.downloadPdf()}" />
+				</center>
+			</h:form>
+		</p>
+	</ui:define>
+
+</ui:composition>

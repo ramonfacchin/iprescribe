@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<h:form id="menu-form">
+	<nav>
+		<ul>
+			<li><h:outputLink value="#{urls.context}">#{messages['menu.home']}</h:outputLink></li>
+			<li>#{messages['menu.users']}
+				<ul>
+					<li><h:outputLink value="#{urls.getUserRegisterContext(1)}">#{messages['menu.users.register']}</h:outputLink></li>
+					<ui:fragment rendered="#{authenticationMB.isAuthenticated()}">
+					<li><h:outputLink value="#{urls.getUserCertificatesContext(1)}">#{messages['menu.users.mycertificates']}</h:outputLink></li>
+					</ui:fragment>
+					<li><h:outputLink value="#{urls.getAuthcheckContext(1)}">#{messages['menu.users.authcheck']}</h:outputLink></li>
+				</ul>
+			</li>
+			<ui:fragment rendered="#{authenticationMB.isUserInRole('md')}">
+			<li>#{messages['menu.medicaldoctors']}
+				<ul>
+					<li><h:outputLink value="#{urls.getMdAddLicenseContext(1)}">#{messages['menu.medicaldoctors.addlicense']}</h:outputLink></li>
+					<li><h:outputLink value="#{urls.getMdCertifyContext(1)}">#{messages['menu.medicaldoctors.certify']}</h:outputLink></li>
+					<li><h:outputLink value="#{urls.getMdCertificatesContext(1)}">#{messages['menu.medicaldoctors.mycertificates']}</h:outputLink></li>
+				</ul>
+			</li>
+			</ui:fragment>
+			<ui:fragment rendered="#{authenticationMB.isUserInRole('admin')}">
+			<li>#{messages['menu.administratos']}
+				<ul>
+					<li><h:outputLink value="#{urls.getLicenseRequestContext(1)}">#{messages['menu.admin.licenserequest']}</h:outputLink></li>
+					<li><h:outputLink value="#{urls.getConfigurationsContext(1)}">#{messages['menu.admin.configurations']}</h:outputLink></li>
+				</ul>
+			</li>
+			</ui:fragment>
+		</ul>
+	</nav>	
+	</h:form>
+	<div class="clear"/>
+	
+</ui:composition>

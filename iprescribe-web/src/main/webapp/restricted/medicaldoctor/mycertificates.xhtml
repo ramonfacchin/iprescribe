@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sample="http://java.sun.com/jsf/composite/tags/sample"
+	template="/templates/pages/basic-divided-header.xhtml">
+
+	<ui:define name="title">#{messages['medicaldoctor.mycertificates.title']}</ui:define>
+
+	<ui:define name="body">
+		<h2>#{messages['medicaldoctor.mycertificates.title']}</h2>
+		<p>
+			<h:messages globalOnly="true"/>
+		
+			<h:form id="my-certificates">
+				<div id="list-filters">
+					<h:outputLabel value="#{messages['medicaldoctor.mycertificates.label.validonly']}" for="listValidOnly" />
+					<h:selectBooleanCheckbox id="listValidOnly" value="#{medicalDoctorCertificateListMB.listValidOnly}">
+						<f:ajax render="my-certificates-table" event="change" />
+					</h:selectBooleanCheckbox>
+				</div>
+		
+				<h:dataTable id="my-certificates-table" value="#{medicalDoctorCertificateListMB.list()}" var="_certificate">
+					<h:column>
+						<f:facet name="header">#{messages['medicaldoctor.mycertificates.table.label.issuer']}</f:facet>
+						<h:outputText value="#{_certificate.issuerLicense.user.identity.name}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">#{messages['medicaldoctor.mycertificates.table.label.certified']}</f:facet>
+						<h:outputText value="#{_certificate.certified.name}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">#{messages['medicaldoctor.mycertificates.table.label.issued']}</f:facet>
+						<h:outputText value="#{_certificate.issued}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">#{messages['medicaldoctor.mycertificates.table.label.validity']}</f:facet>
+						<h:outputText value="#{_certificate.validity}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">#{messages['medicaldoctor.mycertificates.table.label.actions']}</f:facet>
+						<h:commandLink value="#{messages['medicaldoctor.mycertificates.table.label.actions.view']}" action="#{certificateViewMB.viewCertificate(_certificate.id)}" />
+					</h:column>
+				</h:dataTable>
+			</h:form>
+		</p>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/pages/basic-divided-header.xhtml">
+
+	<ui:define name="title">Bem vindo</ui:define>
+
+	<ui:define name="body">
+	
+		<h2>#{messages['application.home.title']}</h2>
+		
+		<p>#{messages['application.home.introtext.0']}</p>
+		<p>#{messages['application.home.introtext.1']}
+			<ol>
+				<li><h:outputText value="#{messages['application.home.introtext.2']}" escape="false" /></li>
+				<li><h:outputText value="#{messages['application.home.introtext.3']}" escape="false" /></li>
+				<li><h:outputText value="#{messages['application.home.introtext.4']}" escape="false" /></li>
+				<li><h:outputText value="#{messages['application.home.introtext.5']}" escape="false" /></li>
+			</ol>
+		</p>
+		<p><h:outputText value="#{messages['application.home.introtext.6']}" escape="false" /></p>
+	
+	</ui:define>
+
+	<ui:define name="footer">
+		<h:selectOneMenu styleClass="select" value="#{internationalizationMB.localeKey}" valueChangeListener="#{internationalizationMB.changeLocale}" onchange="submit();">
+			<f:selectItems value="#{internationalizationMB.availableLanguages}"></f:selectItems>
+		</h:selectOneMenu>
+	</ui:define>
+
+</ui:composition>

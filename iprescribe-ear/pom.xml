@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>iprescribe</artifactId>
+		<groupId>br.ufsc.ramonfacchin</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>iprescribe-ear</artifactId>
+	<packaging>ear</packaging>
+
+	<name>iPrescribe - Módulo EAR</name>
+
+	<description>Módulo de empacotamento EAR do sistema.</description>
+
+	<dependencies>
+
+		<!-- Depend on the ejb module and war so that we can package them -->
+		<dependency>
+			<groupId>br.ufsc.ramonfacchin</groupId>
+			<artifactId>iprescribe-web</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>br.ufsc.ramonfacchin</groupId>
+			<artifactId>iprescribe-ejb</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>br.ufsc.ramonfacchin</groupId>
+			<artifactId>iprescribe-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>br.ufsc.ramonfacchin</groupId>
+			<artifactId>iprescribe-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>br.ufsc.ramonfacchin</groupId>
+			<artifactId>iprescribe-entity</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>br.ufsc.ramonfacchin.permis</groupId>
+			<artifactId>pba</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.arquillian.junit</groupId>
+			<artifactId>arquillian-junit-container</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/application/META-INF</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<finalName>iprescribe</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<!-- Tell Maven we are using Java EE 6 -->
+					<version>6</version>
+					<!-- Use Java EE ear libraries as needed. Java EE ear libraries are 
+						in easy way to package any libraries needed in the ear, and automatically 
+						have any modules (EJB-JARs and WARs) use them -->
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<applicationName>iprescribe</applicationName>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<displayName>Arquétipo Java EE 6</displayName>
+					<finalName>iprescribe</finalName>
+					<generateApplicationXml>true</generateApplicationXml>
+					<modules>
+						<ejbModule>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${parent.artifactId}-ejb</artifactId>
+							<bundleFileName>iprescribe-ejb.jar</bundleFileName>
+						</ejbModule>
+						<webModule>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${parent.artifactId}-web</artifactId>
+							<bundleFileName>${parent.artifactId}-web.war</bundleFileName>
+							<contextRoot>${system.context}</contextRoot>
+						</webModule>
+					</modules>
+				</configuration>
+			</plugin>
+			<!-- The JBoss AS plugin deploys your ear to a local JBoss AS container -->
+			<!-- Due to Maven's lack of intelligence with EARs we need to configure 
+				the jboss-as maven plugin to skip deployment for all modules. We then enable 
+				it specifically in the ear module. -->
+			<plugin>
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+				<configuration>
+					<skip>false</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<!-- When built in OpenShift the 'openshift' profile will be used when 
+				invoking mvn. -->
+			<!-- Use this profile for any OpenShift specific customization your app 
+				will need. -->
+			<!-- By default that is to put the resulting archive into the 'deployments' 
+				folder. -->
+			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+			<id>openshift</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-ear-plugin</artifactId>
+						<version>2.6</version>
+						<configuration>
+							<outputDirectory>deployments</outputDirectory>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>

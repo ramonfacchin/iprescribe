@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sample="http://java.sun.com/jsf/composite/tags/sample"
+    xmlns:p="http://primefaces.org/ui"
+	template="/templates/pages/basic-divided-header.xhtml">
+
+	<ui:define name="title">#{messages['user.register.title']}</ui:define>
+
+	<ui:define name="body">
+		<h2>#{messages['user.register.title']}</h2>
+		<p>
+			<h:messages globalOnly="true"/>
+		
+			<h:form id="register-user">
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="3" columnClasses="largura120, larguraauto, larguraauto">
+						<h:outputLabel value="#{messages['user.register.label.username']}" />
+						<h:inputText value="#{userCrudMB.entityForm.username}" id="username" />
+						<h:message for="username"/>
+						<h:outputLabel value="#{messages['user.register.label.password']}" />
+						<h:inputSecret value="#{userCrudMB.entityForm.password}" id="password"/>
+						<h:message for="password"/>
+						<h:outputLabel value="#{messages['user.register.label.repeatpassword']}" />
+						<h:inputSecret value="#{userCrudMB.repeatPassword}" id="repeatpassword" />
+						<h:message for="repeatpassword"/>
+						<h:outputLabel value="#{messages['user.register.label.email']}"/>
+						<h:inputText value="#{userCrudMB.entityForm.email}" id="email" />
+						<h:message for="email"/>
+					</h:panelGrid>
+						
+					<p:outputPanel id="panel-identity">
+	
+						<p:outputPanel rendered="#{userCrudMB.entityForm.identity.id != null}">
+							<h:panelGrid columns="3" columnClasses="largura120, larguraauto, larguraauto">
+								<h:outputLabel value="#{messages['user.register.label.citizenregistry']}" />
+								<h:inputText value="#{userCrudMB.entityForm.identity.citizenRegistry}" id="citizenregistry2">
+									<f:ajax event="blur" render="panel-identity" listener="#{userCrudMB.citizenRegistryFilled}"/>
+								</h:inputText>
+								<h:message for="citizenregistry2"/>
+								<h:outputLabel value="#{messages['user.register.label.name']}" />
+								<h:outputText value="#{userCrudMB.entityForm.identity.name}" />
+								<h:outputText value="" />
+								<h:outputLabel value="#{messages['user.register.label.birth']}" />
+								<h:outputText value="#{userCrudMB.entityForm.identity.birth}">
+									<f:convertDateTime pattern="#{messages['pattern.datetime']}"/>
+								</h:outputText>
+								<h:outputText value="" />
+								<h:outputLabel value="#{messages['user.register.label.gender']}" />
+								<h:outputText value="#{messages[userCrudMB.entityForm.identity.gender.i18nKey]}" />
+								<h:outputText value="" />
+							</h:panelGrid>
+						</p:outputPanel>				
+	
+						<p:outputPanel rendered="#{userCrudMB.entityForm.identity.id == null}">
+							<h:panelGrid columns="3" columnClasses="largura120, larguraauto, larguraauto">
+								<h:outputLabel value="#{messages['user.register.label.citizenregistry']}" />
+								<h:inputText value="#{userCrudMB.entityForm.identity.citizenRegistry}" id="citizenregistry">
+									<f:ajax event="blur" render="panel-identity" listener="#{userCrudMB.citizenRegistryFilled}"/>
+								</h:inputText>
+								<h:message for="citizenregistry"/>
+								<h:outputLabel value="#{messages['user.register.label.name']}" />
+								<h:inputText value="#{userCrudMB.entityForm.identity.name}" id="name" />
+								<h:message for="name"/>
+								<h:outputLabel value="#{messages['user.register.label.birth']}" title="#{messages['user.register.label.birth.tooltip']}"/>
+								<h:inputText value="#{userCrudMB.entityForm.identity.birth}" id="birth">
+									<f:convertDateTime pattern="#{messages['pattern.datetime']}"/>
+								</h:inputText>
+								<h:message for="birth"/>
+								<h:outputLabel value="#{messages['user.register.label.gender']}" />
+								<h:selectOneRadio value="#{userCrudMB.entityForm.identity.gender}" id="gender" layout="pageDirection">
+									<f:selectItems value="#{enumSelects.genders}" var="gender" itemLabel="#{messages[gender.i18nKey]}" itemValue="#{gender}"/>
+								</h:selectOneRadio>
+								<h:message for="gender"/>
+							</h:panelGrid>
+						</p:outputPanel>				
+					</p:outputPanel>
+				</h:panelGrid>
+				<center>
+					<h:commandButton value="#{messages['user.register.label.submit']}" action="#{userCrudMB.create()}" />
+				</center>
+			</h:form>
+		</p>
+	</ui:define>
+
+</ui:composition>

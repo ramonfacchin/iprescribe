@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>
+		<ui:insert name="title"/>
+	</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!-- 
+	<link rel="stylesheet" media="screen and (max-width: 799px)" href="resources/css/global-n-799.css"/>
+	<link rel="stylesheet" media="screen and (min-width: 800px) and (max-width: 1023px)" href="resources/css/global-800-1023.css"/>
+	<link rel="stylesheet" media="screen and (min-width: 1024px) and (max-width: 1279px)" href="resources/css/global-1024-1279.css"/>
+	<link rel="stylesheet" media="screen and (min-width: 1280px)" href="resources/css/global-1280-n.css"/>
+	 -->
+	<link rel="stylesheet" media="screen" href="/iprescribe-web/resources/css/text.css"/>
+	<link rel="stylesheet" media="screen" href="/iprescribe-web/resources/css/global-1280-n.css"/>
+	<ui:insert name="head"/>
+</h:head>
+<h:body>
+	<div id="global-header" class="global-container">
+		<div id="global-header-content" class="global-content-container">
+			<ui:insert name="header"/>
+		</div>
+	</div>
+	<div id="global-body" class="global-container">
+		<div id="global-body-content" class="global-content-container">
+			<ui:insert name="body"/>
+		</div>
+	</div>
+</h:body>
+</html>
